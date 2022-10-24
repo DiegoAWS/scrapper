@@ -2,8 +2,11 @@ const puppeteer = require('puppeteer');
 
 
 const linkedinLogin = "https://www.linkedin.com/login"
-const pageUrl = "https://www.linkedin.com/search/results/companies/?keywords=tech%20due%20diligence&origin=GLOBAL_SEARCH_HEADER&sid=bhN";
+const linkedinCompaniesPage = "https://www.linkedin.com/search/results/companies"
+// const pageUrl = "https://www.linkedin.com/search/results/companies/?keywords=tech%20due%20diligence&origin=GLOBAL_SEARCH_HEADER&sid=bhN";
 
+const searchSelector = "#global-nav-typeahead > input"
+const searchTerms = "tech due diligence";
 
 const userName = "#username"
 const userNameContent = "diego.escobar@ringstonetech.com"
@@ -49,9 +52,10 @@ async function autoScroll(page) {
     });
 }
 
-
+const timer = 'Full execution time';
 const start = async () => {
 
+    console.time(timer);
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     await page.setViewport({
@@ -64,8 +68,6 @@ const start = async () => {
     console.log("Opening Linkedin")
     await page.goto(linkedinLogin);
 
-
-
     await page.type(userName, userNameContent);
     await page.type(password, passwordContent);
     await click(page, signInButtom);
@@ -73,11 +75,15 @@ const start = async () => {
 
     const skipButton = await page.$(skipButtom)
     if (skipButton) {
+        console.log("Skipping Button Found")
         await click(page, skipButtom)
     }
+    console.log("Going to Companies Page")
 
-    await page.goto(pageUrl);
-    console.log("Going to Search Page")
+    await page.goto(linkedinCompaniesPage);
+
+    await page.type(searchSelector, searchTerms);
+    await page.keyboard.press('Enter');
 
 
 
@@ -114,87 +120,11 @@ const start = async () => {
     }
 
 
-
-    console.log("End Script")
-
-
+    await browser.close();
+    console.timeEnd(timer);
 
 
 
-
-
-
-
-
-
-    // let month = 0;
-    // for (i = 1; i <= 6; i++) {
-
-    //     await page.goto(pageUrl);
-
-    //     // 4 TRP
-    //     await page.click(getSelectorList(1));
-
-
-
-    //     const currentOffice = await page.$(getSelectorList(i));
-    //     const officeName = (await currentOffice.evaluate(currentOffice => currentOffice.innerText)).replace(/\s/g, ' ').trim();
-
-    //     console.log(`\n\nOffice: ${officeName}\n`);
-
-    //     await currentOffice.click();
-
-    //     await Promise.all([
-    //         page.waitForNavigation(),
-    //         page.click(nextButton()),
-    //     ]);
-
-    //     let nextMonth = true;
-    //     while (nextMonth) {
-    //         nextMonth = await page.$(getNextMonth)
-
-    //         const currentMonth = await page.$("#monthSelector");
-    //         const monthName = await currentMonth.evaluate((el) => el.innerText)
-
-    //         console.log(`Checking month: ${monthName}`)
-
-
-    //         const dayAvailable = await page.$(getDaysAvailable)
-    //         if (dayAvailable) {
-    //             // found a day
-
-    //             const dayNumber = await dayAvailable.evaluate((el) => el.innerText)
-
-    //             await page.screenshot({ path: resultImage });
-
-    //             daysFound.push(`Found a day: ${dayNumber} in ${monthName} at ${officeName}`);
-
-    //             return; // comment this line to check all offices
-    //         }
-    //         if (nextMonth) {
-    //             await Promise.all([
-    //                 page.waitForNavigation(),
-    //                 nextMonth.click(),
-    //             ]);
-
-    //             month++
-    //             continue
-
-    //         }
-    //         else {
-    //             break;
-    //         }
-
-
-    //     }
-
-    // }
-
-
-
-    // console.log(`\n\n\n${daysFound.join('\n\n')}`);
-
-    // await browser.close();
 };
 
 
