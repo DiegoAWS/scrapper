@@ -54,9 +54,9 @@ async function autoScroll(page) {
 
 const timer = 'Full execution time';
 const start = async () => {
-
+    const browserToUse = process.argv.includes('--internal-browser') ?{}: { executablePath: '/usr/bin/chromium-browser' }
     console.time(timer);
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ ...browserToUse, headless: true });
     const page = await browser.newPage();
     await page.setViewport({
         width: 1200,
