@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-
+require('dotenv').config()
 
 const linkedinLogin = "https://www.linkedin.com/login"
 const linkedinCompaniesPage = "https://www.linkedin.com/search/results/companies"
@@ -54,9 +54,12 @@ async function autoScroll(page) {
 
 const timer = 'Full execution time';
 const start = async () => {
-    const browserToUse = process.argv.includes('--internal-browser') ?{}: { executablePath: '/usr/bin/chromium-browser' }
+    const isRunningLocally = process.env.IS_LOCAL === 'true';
+    const browserToUse = isRunningLocally ?{}: { executablePath: '/usr/bin/chromium-browser' }
+
     console.time(timer);
-    const browser = await puppeteer.launch({ ...browserToUse, headless: false });
+
+    const browser = await puppeteer.launch({ ...browserToUse, headless: !isRunningLocally });
     const page = await browser.newPage();
     await page.setViewport({
         width: 1200,
