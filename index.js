@@ -130,20 +130,23 @@ const start = async () => {
             console.log("Error Not a login page")
             return
         }
-
+        await page.screenshot({ path: 'l-0.png', fullPage: true });
         console.log("Logged in")
         await page.type(userName, userNameContent);
         await page.type(password, passwordContent);
+        await page.screenshot({ path: 'l-1.png', fullPage: true });
         await click(page, signInButtom);
         console.log("Login Successful")
-
+        await page.screenshot({ path: 'l-2.png', fullPage: true });
         const skipButton = await page.$(skipButtom)
         if (skipButton) {
             console.log("Skipping Button Found")
             await click(page, skipButtom)
         }
+        await page.screenshot({ path: 'l-3.png', fullPage: true });
 
         await page.goto(linkedinCompaniesPage);
+        await page.screenshot({ path: 'l-4.png', fullPage: true });
     }
 
     const afterLogin = await page.$(searchSelector);
