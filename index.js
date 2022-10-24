@@ -150,6 +150,7 @@ const start = async () => {
 
     if(!afterLogin) {
         console.log("Error Not a search page")
+        await page.screenshot({ path: 'notASearchPage.png', fullPage: true });
         return
     }
 
