@@ -137,6 +137,7 @@ const start = async () => {
         await page.screenshot({ path: 'l-1.png', fullPage: true });
         await click(page, signInButtom);
         console.log("Login Successful")
+        await page.waitForTimeout(5000);
         await page.screenshot({ path: 'l-2.png', fullPage: true });
         const skipButton = await page.$(skipButtom)
         if (skipButton) {
