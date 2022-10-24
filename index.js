@@ -67,10 +67,11 @@ const click = async (page, selector) => {
         : selector.click();
 
 
-    return await Promise.all([
+     await Promise.all([
         page.waitForNavigation(),
         clickAction
     ])
+
 };
 
 async function autoScroll(page) {
@@ -92,6 +93,15 @@ async function autoScroll(page) {
     });
 }
 
+const keypress = async () => {
+    console.log("Press any key to continue...");
+    process.stdin.setRawMode(true)
+    return new Promise(resolve => process.stdin.once('data', () => {
+      process.stdin.setRawMode(false)
+      resolve()
+    }))
+  }
+
 const timer = 'Full execution time';
 const start = async () => {
     
@@ -103,7 +113,7 @@ const start = async () => {
     const browser = await puppeteer.launch({
         ...browserToUse,
         headless: !isRunningLocally,
-        // userDataDir: './.localData', 
+        userDataDir: './.localData', 
         // args: minimal_args
     });
     const page = await browser.newPage();
@@ -125,29 +135,34 @@ const start = async () => {
         console.log("Logging in")
         await page.goto(linkedinLogin);
 
-        const userNameInput = await page.$(userName);
-        if (!userNameInput) {
-            console.log("Error Not a login page")
-            return
-        }
-        await page.screenshot({ path: 'l-0.png', fullPage: true });
-        console.log("Logged in")
-        await page.type(userName, userNameContent);
-        await page.type(password, passwordContent);
-        await page.screenshot({ path: 'l-1.png', fullPage: true });
-        await click(page, signInButtom);
-        console.log("Login Successful")
-        await page.waitForTimeout(5000);
-        await page.screenshot({ path: 'l-2.png', fullPage: true });
-        const skipButton = await page.$(skipButtom)
-        if (skipButton) {
-            console.log("Skipping Button Found")
-            await click(page, skipButtom)
-        }
-        await page.screenshot({ path: 'l-3.png', fullPage: true });
+        // const userNameInput = await page.$(userName);
+        // if (!userNameInput) {
+        //     console.log("Error Not a login page")
+        //     return
+        // }
+        // await page.screenshot({ path: 'l-0.png', fullPage: true });
+        // console.log("Logged in")
+        // await page.type(userName, userNameContent);
+        // await page.type(password, passwordContent);
+        // await page.screenshot({ path: 'l-1.png', fullPage: true });
+        // await click(page, signInButtom);
+        // console.log("Login Successful")
+        // await page.waitForTimeout(5000);
+        // await page.screenshot({ path: 'l-2.png', fullPage: true });
+        // const skipButton = await page.$(skipButtom)
+        // if (skipButton) {
+        //     console.log("Skipping Button Found")
+        //     await click(page, skipButtom)
+        // }
+        // await page.screenshot({ path: 'l-3.png', fullPage: true });
+
+        // 
+        // await page.screenshot({ path: 'l-4.png', fullPage: true });
+        console.clear()
+        console.log("Please login manually")
+        await keypress()
 
         await page.goto(linkedinCompaniesPage);
-        await page.screenshot({ path: 'l-4.png', fullPage: true });
     }
 
     const afterLogin = await page.$(searchSelector);
@@ -160,10 +175,6 @@ const start = async () => {
     }
 
     console.log("Going to Companies Page")
-
-    
-
-    // await page.screenshot({ path: 'example.png', });
 
     await page.type(searchSelector, searchTerms);
     await page.keyboard.press('Enter');
