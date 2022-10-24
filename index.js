@@ -54,6 +54,7 @@ async function autoScroll(page) {
 
 const timer = 'Full execution time';
 const start = async () => {
+    
     const isRunningLocally = process.env.IS_LOCAL === 'true';
     const browserToUse = isRunningLocally ?{}: { executablePath: '/usr/bin/chromium-browser' }
 
