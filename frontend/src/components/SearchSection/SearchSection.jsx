@@ -30,6 +30,7 @@ function SearchSection() {
 
   return (
     <div className="searchSectionContainer">
+      <div className="titleSection">Search terms</div>
       <div className="searchSection">
         {searchTerms.map((searchTerm, index) => (
           <TextField
