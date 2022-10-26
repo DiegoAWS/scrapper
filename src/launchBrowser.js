@@ -9,7 +9,7 @@ const launchBrowser = async () => {
 
     await page.goto("http://localhost:3001");
 
-    console.log("Waiting for 5 seconds")
+
     const pages = await browser.pages()
     pages.forEach(item => {
         const url = item.url()
