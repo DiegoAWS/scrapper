@@ -1,8 +1,11 @@
 import React from 'react'
+import SearchSection from '../../components/SearchSection/SearchSection'
 
 function MainLayout() {
   return (
-    <div>MainLayout</div>
+    <div>
+        <SearchSection />
+    </div>
   )
 }
 
