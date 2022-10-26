@@ -1,5 +1,6 @@
 var express = require('express')
-var cors = require('cors')
+var cors = require('cors');
+const { launchBrowser } = require('./src/launchBrowser');
 var app = express()
 
 app.use(cors())
@@ -13,4 +14,6 @@ app.post('/api', function (req, res) {
 
 app.listen(3001, function () {
     console.log('Web server listening on port 3001')
+
+    launchBrowser()
 })
