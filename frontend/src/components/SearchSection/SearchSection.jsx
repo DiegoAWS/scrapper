@@ -29,7 +29,7 @@ function SearchSection() {
   };
 
   return (
-    <div className="searchSectionContainer">
+    <div className="searchSectionContainer card">
       <div className="titleSection">Search terms</div>
       <div className="searchSection">
         {searchTerms.map((searchTerm, index) => (
@@ -40,6 +40,7 @@ function SearchSection() {
             fullWidth
             value={searchTerm}
             margin="normal"
+            size="small"
             InputProps={{
               endAdornment: (
                 <IconButton
@@ -62,6 +63,7 @@ function SearchSection() {
           variant="outlined"
           fullWidth
           autoFocus
+          size="small"
           label="Add Search Term"
           inputRef={inputTextRef}
           onKeyPress={handleKeyPress}
