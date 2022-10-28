@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors');
 const fs = require('fs');
 const { launchBrowser } = require('./src/launchBrowser');
+const { sendSearchRequest } = require('./src/longRunningProcess');
 const app = express()
 
 let browser = null
@@ -27,10 +28,10 @@ const readFile = () => {
     }
 }
 
-app.post('/api', function (req, res) {
+app.post('/start', function (req, res) {
     const data = req.body
     writeFile(data)
-
+    sendSearchRequest(browser, data)
     res.json(req.body)
 })
 
@@ -44,8 +45,8 @@ app.get('/close', function (req, res) {
   process.exit(0)
 })
 
+
 app.listen(3001, function () {
-    console.log('Web server listening on port 3001')
 
     launchBrowser().then(({ browser: thisBrowser, page: thisPage }) => {
         console.log('Browser launched')

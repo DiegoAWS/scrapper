@@ -66,23 +66,25 @@ const manualLogin = async (customBrowser) => {
 
     await page.goto(linkedinLogin);
 
+    await new Promise((resolve) => {
     const checkUserLogin = setInterval(async () => {
         console.log(page.url())
 
         if (page.url() === linkedinlandingPage) {
             console.log("Logged in")
-            await browser.close();
+            page.close();
             clearInterval(checkUserLogin)
+            resolve()
         }
 
     }, 2000)
 
+    });
 }
 
-const scrapper = async (customBrowser, searchTerms, targetKeywords, { searchCategory, limit }) => {
-
+const launchBrowser = async () => {
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         userDataDir: './.localData',
         args: [
             "--start-fullscreen",
@@ -90,24 +92,40 @@ const scrapper = async (customBrowser, searchTerms, targetKeywords, { searchCate
             "--app"
         ],
     });
+
     const page = await browser.newPage();
     await page.setViewport({
         width: 1920,
         height: 1024,
         deviceScaleFactor: 1,
     });
-
     console.log("Opening Linkedin")
     await page.goto(linkedinCompaniesPage);
+
+    return { browser, page }
+}
+
+
+const scrapper = async (customBrowser, searchTerms, targetKeywords, limit) => {
+
+    let { browser, page } = await launchBrowser();
 
     let searchInput = await page.$(searchSelector);
 
     if (!searchInput) {
         await manualLogin(customBrowser);
+        console.log("Manual loggin in")
+        await page.screenshot({ path: 'before.png', fullPage: true });
 
-        await page.goto(linkedinCompaniesPage);
-        searchInput = await page.$(searchSelector);
+        await browser.close();
+
+        const data = await launchBrowser();
+        browser = data.browser;
+        page = data.page;
+
+        await page.screenshot({ path: 'after.png', fullPage: true });
     }
+
 
     if (!searchInput) {
         console.log("Error Not a search page")
@@ -172,21 +190,23 @@ const scrapper = async (customBrowser, searchTerms, targetKeywords, { searchCate
 
 
 
-scrapper(
-    undefined,
-    "Diego",
-    "Google",
-    {
-        "searchTerms": [
-            "Google"
-        ],
-        "targetKeywords": "Google",
-        "searchCategory": "companies",
-        "limit": 1000,
-        "location": ""
-    }).then((position) => {
-        console.log("Done App")
-        console.log("Position", position)
-    })
+// scrapper(
+//     undefined,
+//     "Diego",
+//     "Google",
+//     100,
+//     // {
+//     //     "searchTerms": [
+//     //         "Google"
+//     //     ],
+//     //     "targetKeywords": "Google",
+//     //     "searchCategory": "companies",
+//     //     "limit": 1000,
+//     //     "location": ""
+//     // }
+//     ).then((position) => {
+//         console.log("Done App")
+//         console.log("Position", position)
+//     })
 
 module.exports = { scrapper }

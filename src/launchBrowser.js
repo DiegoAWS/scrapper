@@ -6,8 +6,8 @@ const launchBrowser = async () => {
         userDataDir: './.localData',
         args:[
             "--start-fullscreen",
-            "--kiosk",
-            "--app"
+            // "--kiosk",
+            // "--app"
             ],
         defaultViewport: null,
     });

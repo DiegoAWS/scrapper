@@ -26,7 +26,7 @@ const searchCategories = [
 const limits = [10, 50, 100, 200];
 function MainLayout() {
   const [textEntry, setTextEntry] = useState("");
-  const [searchTerms, setSearchTerms] = useState([]);
+  const [searchTerms, setSearchTerms] = useState(["Ring Stone"]);
   const [searchKeyword, setSearchKeyword] = useState("RingStone");
   const [searchCategory, setSearchCategory] = useState("companies");
   const [limit, setLimit] = useState(100);
