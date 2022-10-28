@@ -1,12 +1,8 @@
 const puppeteer = require('puppeteer');
 require('dotenv').config()
-// import terminalImage from ('terminal-image')
-
 const linkedinLogin = "https://www.linkedin.com/login"
 const linkedinlandingPage = "https://www.linkedin.com/feed/"
 const linkedinCompaniesPage = "https://www.linkedin.com/search/results/companies"
-// const pageUrl = "https://www.linkedin.com/search/results/companies/?keywords=tech%20due%20diligence&origin=GLOBAL_SEARCH_HEADER&sid=bhN";
-
 
 const searchSelector = "#global-nav-typeahead > input"
 const resultLinksSelector = "#main > div > div > div.ph0.pv2.artdeco-card.mb2 > ul > li > div > div > div.entity-result__content.entity-result__divider.pt3.pb3.t-12.t-black--light > div.mb1 > div.t-roman.t-sans > div > span > span > a"
@@ -47,10 +43,19 @@ async function autoScroll(page) {
     });
 }
 
+async function scrollToTop(page) {
+    await page.evaluate(async () => {
 
-const manualLogin = async () => {
+        window.scrollBy(0, 0);
+
+
+    });
+}
+
+
+const manualLogin = async (customBrowser) => {
     console.log("Login manually")
-    const browser = await puppeteer.launch({
+    const browser = customBrowser || await puppeteer.launch({
         headless: false,
         userDataDir: './.localData',
         defaultViewport: null,
@@ -74,14 +79,23 @@ const manualLogin = async () => {
 
 }
 
-const scrapper = async (searchTerms, targetKeywords, { searchCategory, limit }) => {
+const scrapper = async (customBrowser, searchTerms, targetKeywords, { searchCategory, limit }) => {
 
     const browser = await puppeteer.launch({
         headless: true,
         userDataDir: './.localData',
-        defaultViewport: null,
+        args: [
+            "--start-fullscreen",
+            "--kiosk",
+            "--app"
+        ],
     });
     const page = await browser.newPage();
+    await page.setViewport({
+        width: 1920,
+        height: 1024,
+        deviceScaleFactor: 1,
+    });
 
     console.log("Opening Linkedin")
     await page.goto(linkedinCompaniesPage);
@@ -89,12 +103,11 @@ const scrapper = async (searchTerms, targetKeywords, { searchCategory, limit }) 
     let searchInput = await page.$(searchSelector);
 
     if (!searchInput) {
-        await manualLogin();
+        await manualLogin(customBrowser);
 
         await page.goto(linkedinCompaniesPage);
         searchInput = await page.$(searchSelector);
     }
-
 
     if (!searchInput) {
         console.log("Error Not a search page")
@@ -103,22 +116,18 @@ const scrapper = async (searchTerms, targetKeywords, { searchCategory, limit }) 
         return
     }
 
-
-
-
-
+    console.log("Searching for ", searchTerms)
     await page.type(searchSelector, searchTerms);
-    await new Promise(r => setTimeout(r, 1000));
-    await page.screenshot({ path: 'searchPage.png'});
+    // await page.screenshot({ path: 'searchPage.png', fullPage: true });
     await page.keyboard.press('Enter');
+  
 
     let found = null
     let i = 1
     while (!found) {
         await autoScroll(page);
         const possibleLinks = await page.$$(resultLinksSelector);
-
-        console.log(page.url());
+        // await page.screenshot({ path: 'searchPage'+i+'.png', fullPage: true });
         for (const link of possibleLinks) {
             
             const text = await page.evaluate(el => el.innerText, link);
@@ -133,9 +142,8 @@ const scrapper = async (searchTerms, targetKeywords, { searchCategory, limit }) 
 
 
         if (found) {
-            console.log(page.url());
-            console.log(found)
-
+            console.log("\n\n"+page.url()+"\n\n");
+            console.log("\n\n"+found+"\n\n");
             return i;
         }
 
@@ -165,15 +173,16 @@ const scrapper = async (searchTerms, targetKeywords, { searchCategory, limit }) 
 
 
 scrapper(
+    undefined,
+    "Diego",
     "Google",
-    "Google Ads",
     {
         "searchTerms": [
             "Google"
         ],
         "targetKeywords": "Google",
         "searchCategory": "companies",
-        "limit": 50,
+        "limit": 1000,
         "location": ""
     }).then((position) => {
         console.log("Done App")
