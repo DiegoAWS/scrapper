@@ -1,0 +1,59 @@
+.mainlayoutWrapper{
+    height: 100vh;
+    background-color: rgba(99, 169, 254, 0.096);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+
+    .searchSectionContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+        height: 500px;
+    
+        position: relative;
+    
+        .titleSection{
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+            padding: 0 3px;
+        }
+        
+        
+        .searchSection {
+            height: 80vh;
+            overflow-y: auto;
+        }
+    
+        .addSearchTermSection {
+            padding-top: 15px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+    
+    
+        }
+    }
+
+    .searchRow{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+     
+       &>div{
+           margin: 5px;
+           flex-grow: 1;
+           min-width: 200px;
+       }
+        
+    }
+
+}
