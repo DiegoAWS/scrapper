@@ -5,8 +5,12 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import CircularProgress from "@mui/material/CircularProgress";
 import { MenuItem } from "@mui/material";
 import RingStoneLogo from "../assets/ringStoneLogo.svg"
+
+import { sendSearchRequest } from "../services/axios";
+
 
 const searchCategories = [
   {
@@ -45,13 +49,23 @@ function MainLayout() {
     setSearchTerms((data) => data.filter((_, i) => i !== index));
   };
 
+  const handleSearch = async () => {
+    setIsRunning(true);
+    const response =await  sendSearchRequest({
+      searchTerms,
+      searchKeyword,
+      searchCategory,
+      limit,
+      location,
+    });
+    console.log({ response });
+  };
+
   return (
     <div className="mainlayoutWrapper">
       <div className="navBar card">
-        <img src={RingStoneLogo} width={'50px'} alt="RingStone Logo"  />
-        <div className="title">
-          RingStone Scrapping Tool
-          </div>
+        <img src={RingStoneLogo} width={"50px"} alt="RingStone Logo" />
+        <div className="title">RingStone Scrapping Tool</div>
       </div>
       <div className="searchSectionContainer card">
         <div className="titleSection">Search terms</div>
@@ -92,6 +106,7 @@ function MainLayout() {
             label="Add Search Term"
             inputRef={inputTextRef}
             onKeyPress={handleKeyPress}
+            disabled={isRunning}
           />
 
           <IconButton
@@ -110,6 +125,7 @@ function MainLayout() {
           onChange={(e) => setSearchKeyword(e.target.value)}
           variant="outlined"
           fullWidth
+          disabled={isRunning}
           margin="normal"
           size="small"
         />
@@ -119,6 +135,7 @@ function MainLayout() {
           label="Search category"
           value={searchCategory}
           onChange={(e) => setSearchCategory(e.target.value)}
+          disabled={isRunning}
           margin="normal"
           size="small"
         >
@@ -135,6 +152,7 @@ function MainLayout() {
           value={limit}
           onChange={(e) => setLimit(e.target.value)}
           margin="normal"
+          disabled={isRunning}
           size="small"
         >
           {limits.map((option) => (
@@ -151,14 +169,16 @@ function MainLayout() {
           variant="outlined"
           margin="normal"
           size="small"
+          disabled={isRunning}
         />
         <Button
           disabled={
             isRunning || searchTerms.length === 0 || searchKeyword.length === 0
           }
+          onClick={handleSearch}
           variant="contained"
         >
-          Run!
+          {isRunning ? <CircularProgress size={20} /> : " Run!"}
         </Button>
       </div>
     </div>
