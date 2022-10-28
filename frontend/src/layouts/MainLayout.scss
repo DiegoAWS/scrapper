@@ -6,6 +6,19 @@
     padding: 10px;
     box-sizing: border-box;
 
+    .navBar{
+        display: flex;
+        align-items: center;
+        padding: 5px 20px;
+
+        .title{
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e1e1e;
+            margin-left: 20px;
+        }
+    }
+
     .searchSectionContainer{
         display: flex;
         flex-direction: column;

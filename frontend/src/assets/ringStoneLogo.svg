@@ -1,0 +1,24 @@
+<svg preserveAspectRatio="xMidYMid meet" data-bbox="3.214 3.535 201.503 201.519" viewBox="3.214 3.535 201.503 201.519" height="208mm" width="208mm" xmlns="http://www.w3.org/2000/svg" data-type="color" role="presentation" aria-hidden="true" aria-labelledby="svgcid-nl4h24-xhm2t8"><title id="svgcid-nl4h24-xhm2t8"></title>
+    <g>
+        <defs>
+            <filter height="1.019" y="-.009" width="1.015" x="-.008" id="svgcid-fybl8qauau0t" color-interpolation-filters="sRGB">
+                <feGaussianBlur stdDeviation=".227"></feGaussianBlur>
+            </filter>
+            <mask id="svgcid--s2c6b6-l5malw" maskUnits="userSpaceOnUse">
+                <g style="mix-blend-mode:normal" transform="matrix(1.0444 0 0 1.01915 449.717 -15.888)" filter="url(#svgcid-fybl8qauau0t)">
+                    <path fill="#ffffff" paint-order="fill markers stroke" d="M-248.848 121.421c0 46.52-36.804 84.231-82.205 84.231-45.4 0-82.205-37.712-82.205-84.231 0-46.52 36.804-84.231 82.205-84.231 45.4 0 82.205 37.712 82.205 84.231z"></path>
+                </g>
+            </mask>
+        </defs>
+        <path fill="#272727" fill-rule="evenodd" d="M204.149 104.294c0 55.33-44.853 100.183-100.183 100.183-55.33 0-100.183-44.853-100.183-100.183 0-55.33 44.853-100.183 100.183-100.183 55.33 0 100.183 44.853 100.183 100.183z" data-color="1"></path>
+        <path style="mix-blend-mode:normal" d="M182.673 41.405l-59.197 59.204V5.597a100.854 100.863 0 0 1 11.1 2.88v68.965l8.484-8.486v-57.41a100.845 100.853 0 0 1 11.11 5.54v40.761l8.67-8.671V22.65c7.836 5.617 14.3 11.752 19.833 18.754z" fill="#ffffff" paint-order="stroke markers fill" data-color="2"></path>
+        <path d="M204.086 115.486h-83.72l67.178-67.184a100.853 100.861 0 0 1 5.813 9.885l-48.76 48.766h11.999l40.592-40.595a100.845 100.853 0 0 1 3.937 11.774l-28.82 28.821h12.263L203.321 88.2c1.569 9.512 1.802 18.421.765 27.286z" style="mix-blend-mode:normal" fill="#ffffff" paint-order="stroke markers fill" data-color="2"></path>
+        <path style="mix-blend-mode:normal" d="M166.849 183.009l-59.199-59.204h95.003a100.855 100.864 0 0 1-2.878 11.101h-68.96l8.485 8.487h57.407a100.846 100.854 0 0 1-5.542 11.109h-40.757l8.672 8.671h26.52c-5.616 7.837-11.75 14.3-18.751 19.836z" fill="#ffffff" paint-order="stroke markers fill" data-color="2"></path>
+        <path d="M92.776 204.423v-83.727l67.177 67.183a100.853 100.861 0 0 1-9.884 5.813l-48.763-48.765v12.001l40.593 40.595a100.845 100.853 0 0 1-11.773 3.938l-28.82-28.822v12.264l18.754 18.755c-9.512 1.57-18.42 1.802-27.284.765z" style="mix-blend-mode:normal" fill="#ffffff" paint-order="stroke markers fill" data-color="2"></path>
+        <path d="M41.082 25.58l59.198 59.202H5.278A100.853 100.861 0 0 1 8.156 73.68h68.96l-8.485-8.486H11.223a100.846 100.854 0 0 1 5.542-11.109h40.757l-8.672-8.671H22.33c5.617-7.838 11.75-14.302 18.752-19.836z" style="mix-blend-mode:normal" fill="#ffffff" paint-order="stroke markers fill" data-color="2"></path>
+        <path style="mix-blend-mode:normal" d="M115.156 4.165v83.726L47.979 20.708a100.853 100.861 0 0 1 9.883-5.813l48.763 48.764V51.66L66.031 11.064a100.845 100.853 0 0 1 11.773-3.938l28.82 28.823V23.685L87.871 4.93c9.512-1.568 18.42-1.801 27.285-.764z" fill="#ffffff" paint-order="stroke markers fill" data-color="2"></path>
+        <path style="mix-blend-mode:normal" d="M25.258 167.182l59.198-59.203v95.01a100.85 100.859 0 0 1-11.1-2.877v-68.967l-8.485 8.486v57.412a100.841 100.85 0 0 1-11.11-5.543v-40.758l-8.67 8.672v26.523c-7.836-5.616-14.3-11.752-19.833-18.754z" fill="#ffffff" paint-order="stroke markers fill" data-color="2"></path>
+        <path style="mix-blend-mode:normal" d="M3.845 93.104h83.72l-67.177 67.181a100.853 100.861 0 0 1-5.814-9.884l48.761-48.768h-12l-40.591 40.598a100.845 100.853 0 0 1-3.937-11.774l28.82-28.822H23.362L4.609 120.39c-1.569-9.513-1.801-18.422-.765-27.286z" fill="#ffffff" paint-order="stroke markers fill" data-color="2"></path>
+        <path transform="translate(-17.634 -21.858) scale(1.1696)" mask="url(#svgcid--s2c6b6-l5malw)" fill="#ff4040" paint-order="stroke fill markers" d="M117.705 107.902c0 7.57-6.136 13.705-13.705 13.705-7.57 0-13.705-6.136-13.705-13.705 0-7.57 6.136-13.705 13.705-13.705 7.57 0 13.705 6.136 13.705 13.705z" data-color="3"></path>
+    </g>
+</svg>

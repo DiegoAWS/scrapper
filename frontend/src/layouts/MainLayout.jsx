@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import { MenuItem } from "@mui/material";
+import RingStoneLogo from "../assets/ringStoneLogo.svg"
 
 const searchCategories = [
   {
@@ -46,6 +47,12 @@ function MainLayout() {
 
   return (
     <div className="mainlayoutWrapper">
+      <div className="navBar card">
+        <img src={RingStoneLogo} width={'50px'} alt="RingStone Logo"  />
+        <div className="title">
+          RingStone Scrapping Tool
+          </div>
+      </div>
       <div className="searchSectionContainer card">
         <div className="titleSection">Search terms</div>
         <div className="searchSection">
