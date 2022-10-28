@@ -5,16 +5,13 @@ const launchBrowser = async () => {
         headless: false,
         userDataDir: './.localData',
         args:[
-            "--start-fullscreen"
-        ],
+            "--start-fullscreen",
+            "--kiosk",
+            "--app"
+            ],
         defaultViewport: null,
     });
     const page = await browser.newPage();
-    // await page.setViewport({
-    //     width: 1200,
-    //     height: 1024,
-    //     deviceScaleFactor: 1,
-    // });
 
     await page.goto("http://localhost:3001");
 

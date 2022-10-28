@@ -30,6 +30,7 @@ const readFile = () => {
 app.post('/api', function (req, res) {
     const data = req.body
     writeFile(data)
+
     res.json(req.body)
 })
 
@@ -39,6 +40,9 @@ app.get('/state', function (req, res) {
 })
 
 
+app.get('/close', function (req, res) {
+  process.exit(0)
+})
 
 app.listen(3001, function () {
     console.log('Web server listening on port 3001')

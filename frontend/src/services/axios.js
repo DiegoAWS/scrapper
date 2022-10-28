@@ -5,3 +5,7 @@ export const sendSearchRequest = async (data) => {
     const response = await axios.post(`${url}/api`,data)
     return response.data
 }
+
+export const closeApp = async () => {
+    await axios.get(`${url}/close`)
+}

@@ -5,6 +5,19 @@
     flex-direction: column;
     padding: 10px;
     box-sizing: border-box;
+    position: relative;
+
+    .closeButton{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+
+        :hover{
+            color: red;
+
+        }
+    }
 
     .navBar{
         display: flex;

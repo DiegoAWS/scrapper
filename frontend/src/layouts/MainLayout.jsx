@@ -4,12 +4,13 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CloseIcon from '@mui/icons-material/Close';
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import CircularProgress from "@mui/material/CircularProgress";
 import { MenuItem } from "@mui/material";
 import RingStoneLogo from "../assets/ringStoneLogo.svg"
 
-import { sendSearchRequest } from "../services/axios";
+import { closeApp, sendSearchRequest } from "../services/axios";
 
 
 const searchCategories = [
@@ -63,6 +64,12 @@ function MainLayout() {
 
   return (
     <div className="mainlayoutWrapper">
+      <IconButton
+      className="closeButton"
+      onClick={()=>closeApp()}
+      >
+        <CloseIcon />
+      </IconButton>
       <div className="navBar card">
         <img src={RingStoneLogo} width={"50px"} alt="RingStone Logo" />
         <div className="title">RingStone Scrapping Tool</div>
