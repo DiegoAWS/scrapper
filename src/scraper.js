@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 require('dotenv').config()
+const linkedin = "https://www.linkedin.com";
 const linkedinLogin = "https://www.linkedin.com/login"
 const linkedinlandingPage = "https://www.linkedin.com/feed/"
 const linkedinCompaniesPage = "https://www.linkedin.com/search/results/companies"
@@ -55,14 +56,8 @@ async function scrollToTop(page) {
 
 const manualLogin = async (customBrowser) => {
     console.log("Login manually")
-    const browser = customBrowser || await puppeteer.launch({
-        headless: false,
-        userDataDir: './.localData',
-        defaultViewport: null,
-    });
 
-
-    const page = await browser.newPage();
+    const page = await customBrowser.newPage();
 
     await page.goto(linkedinLogin);
 
@@ -80,50 +75,64 @@ const manualLogin = async (customBrowser) => {
     }, 2000)
 
     });
+
+    return { page, browser: customBrowser };
 }
 
 const launchBrowser = async () => {
+    console.log("launchBrowser")
+
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         userDataDir: './.localData',
-        args: [
-            "--start-fullscreen",
-            "--kiosk",
-            "--app"
-        ],
     });
 
     const page = await browser.newPage();
+
     await page.setViewport({
         width: 1920,
         height: 1024,
         deviceScaleFactor: 1,
     });
     console.log("Opening Linkedin")
-    await page.goto(linkedinCompaniesPage);
 
+    await page.goto(linkedinCompaniesPage);
     return { browser, page }
 }
 
 
-const scrapper = async (customBrowser, searchTerms, targetKeywords, limit) => {
+const scrapper = async (browser, searchTerms, targetKeywords, limit) => {
+    console.log("scrapper")
+    // const browser = await puppeteer.launch({
+    //     headless: true,
+    //     userDataDir: './.localData',
+    // });
 
-    let { browser, page } = await launchBrowser();
+    const page = await browser.newPage();
+
+    await page.setViewport({
+        width: 1920,
+        height: 1024,
+        deviceScaleFactor: 1,
+    });
+    console.log("Opening Linkedin")
+
+    await page.goto(linkedinCompaniesPage);
 
     let searchInput = await page.$(searchSelector);
 
     if (!searchInput) {
-        await manualLogin(customBrowser);
-        console.log("Manual loggin in")
-        await page.screenshot({ path: 'before.png', fullPage: true });
+        console.log("No search input found")
+        console.log("Logging in manually")
 
-        await browser.close();
+        await page.goto(linkedinLogin);
 
-        const data = await launchBrowser();
-        browser = data.browser;
-        page = data.page;
+        await page.waitForSelector(searchSelector, { visible: true, timeout:120000 });
 
-        await page.screenshot({ path: 'after.png', fullPage: true });
+        console.log("Logged in")
+
+        await page.goto(linkedinCompaniesPage);
+        searchInput = await page.$(searchSelector);
     }
 
 

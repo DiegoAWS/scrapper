@@ -2,8 +2,12 @@ const express = require('express')
 const cors = require('cors');
 const fs = require('fs');
 const { launchBrowser } = require('./src/launchBrowser');
-const { sendSearchRequest } = require('./src/longRunningProcess');
+const { sendSearchRequest } = require('./src/sendSearchRequest');
 const app = express()
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const port = 3001
+
 
 let browser = null
 let page = null
@@ -46,12 +50,23 @@ app.get('/close', function (req, res) {
 })
 
 
-app.listen(3001, function () {
+// app.listen(port, function () {
+//     console.log(`Example app listening on port ${port}!`)
+ 
+// })
 
-    launchBrowser().then(({ browser: thisBrowser, page: thisPage }) => {
-        console.log('Browser launched')
-        writeFile({})
-        browser = thisBrowser
-        page = thisPage
-    })
+const httpServer = createServer(app);
+const io = new Server(httpServer, { /* options */ });
+
+io.on("connection", (socket) => {
+  console.log("a user connected");
+});
+
+httpServer.listen(port);
+
+launchBrowser().then(({ browser: thisBrowser, page: thisPage }) => {
+    console.log('Browser launched')
+    writeFile({})
+    browser = thisBrowser
+    page = thisPage
 })
