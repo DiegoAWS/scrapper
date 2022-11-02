@@ -101,12 +101,12 @@ const launchBrowser = async () => {
 }
 
 
-const scrapper = async (browser, searchTerms, targetKeywords, limit) => {
+const scrapper = async (_, searchTerms, targetKeywords, limit) => {
     console.log("scrapper")
-    // const browser = await puppeteer.launch({
-    //     headless: true,
-    //     userDataDir: './.localData',
-    // });
+    const browser = await puppeteer.launch({
+        headless: true,
+        userDataDir: './.localData',
+    });
 
     const page = await browser.newPage();
 
@@ -199,23 +199,23 @@ const scrapper = async (browser, searchTerms, targetKeywords, limit) => {
 
 
 
-// scrapper(
-//     undefined,
-//     "Diego",
-//     "Google",
-//     100,
-//     // {
-//     //     "searchTerms": [
-//     //         "Google"
-//     //     ],
-//     //     "targetKeywords": "Google",
-//     //     "searchCategory": "companies",
-//     //     "limit": 1000,
-//     //     "location": ""
-//     // }
-//     ).then((position) => {
-//         console.log("Done App")
-//         console.log("Position", position)
-//     })
+scrapper(
+    undefined,
+    "Diego",
+    "Google",
+    100,
+    // {
+    //     "searchTerms": [
+    //         "Google"
+    //     ],
+    //     "targetKeywords": "Google",
+    //     "searchCategory": "companies",
+    //     "limit": 1000,
+    //     "location": ""
+    // }
+    ).then((position) => {
+        console.log("Done App")
+        console.log("Position", position)
+    })
 
 module.exports = { scrapper }
